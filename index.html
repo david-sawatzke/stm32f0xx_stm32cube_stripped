@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Stm32f0xx stm32cube stripped by dakesew</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Stm32f0xx stm32cube stripped</h1>
+        <p>A template for deveolping for the stm32f0 range of microcontrollers, by default set to stm32f030f4</p>
+
+        <p class="view"><a href="https://github.com/dakesew/stm32f0xx_stm32cube_stripped">View the Project on GitHub <small>dakesew/stm32f0xx_stm32cube_stripped</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/dakesew/stm32f0xx_stm32cube_stripped/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/dakesew/stm32f0xx_stm32cube_stripped/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/dakesew/stm32f0xx_stm32cube_stripped">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>
+<a id="a-makefile-for-using-the-stm32f030f4-with-the-stm32cube-library" class="anchor" href="#a-makefile-for-using-the-stm32f030f4-with-the-stm32cube-library" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Makefile for using the stm32f030f4 with the stm32cube Library</h3>
+
+<p>Well, let me start of by saying that I’m not a native english speaker. So, if you find any spelling/grammar/…errors, blame me in the comments.
+To get this Makefile (actually you need the Linker file too) just go the repository and download at least the Makefile and the Linkerfile. I’d recommend downloading the whole thing(~25MB), so you don’t have to get the Library separately from ST.
+To actually fully use it, you need openocd, arm-none-eabi-gcc, arm-none-eabi-gdb and an editor. You should be able to get them from the packet manager of your Linux distribution. If you’re on Windows or OS X, just search the Internet for advice.
+This Template follows the Structure of STs Template. The Cube Library is in ./Lib, “your” C files are in ./Src and your .h files are in ./Inc. If you come from the AVR(or similar), there are some new things to learn.</p>
+
+<p>You should provide a Startup file (typically written in Assembler), that initialises the processor for your c program. This startupfile is written by ST and first calls SystemInit, before your main function (Yeah, main is just a function[more or less]). SystemInint sets all the important Registers to their default values. This function is hidden inside the system_stm32f0xx.c file.
+You have to provide a linker file (.ld) that tells the compiler, where the ram and flash start and end, because while it’s included in the avr-gcc compiler, here you can’t possibly store all arm core chips properties in your compiler.
+You almost never directly access the registers. For that you use the Library, because ARM MCUs almost always have enough space (the cheapest one on digikey for 0.60$ still has 8KBs flash). You of course have the option to access them, but I wouldn’t do that.
+There are next to none in DIP packages, so get ready to buy adapter boards and solder smd.
+For the stm32 micros, debuggers are extremely cheap (~5$ of ebay, ~20 $ directly from ST), so just spare yourself the hassle of not using a debugger, if you plan to use them (and not only try them once, for that you have the integrated boot loader)</p>
+
+<p>The Makefile has three useful targets</p>
+
+<ul>
+<li>all/ (none) compiles everything that has changed since the last run</li>
+<li>flash needs all as a prerequisite and flashes the .elf file to the MCU (defined in the openocd.cfg)</li>
+<li>clean forces the compiler to compile everything again (useful when changing compiler flags)</li>
+</ul>
+
+<p>The program in main.c just blinks an Led with 1Hz on PA4. You can read the comments, to inform yourself about whats going on. If you want to know more, read the stm32f0xx family data sheet, the Hal driver descriptions. I plan on publishing tutorials on this Blog too.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/dakesew">dakesew</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
