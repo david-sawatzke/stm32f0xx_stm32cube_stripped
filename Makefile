@@ -95,7 +95,7 @@ LDFLAGS += -Wl,-script="$(LINKER_FILE)" -Wl,-Map=$(PROJ_NAME).map
 %.o: %.s
 	$(CC) $(CFLAGS) -o $@  -c $< $(INCLUDE)
 
-all: $(PROJ_NAME).elf
+all: $(PROJ_NAME).elf clang-complete
 
 %.elf: $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS)
@@ -108,6 +108,9 @@ flash: all
 	-c "flash write_image erase $(PROJ_NAME).elf" \
 	-c "verify_image $(PROJ_NAME).elf" \
 	-c "reset run" -c shutdown
+
+clang-complete:
+	echo $(INCLUDE)>.clang_complete
 
 clean:
 	$(RM) $(OBJS) $(PROJ_NAME).elf
