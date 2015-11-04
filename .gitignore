@@ -1,0 +1,4 @@
+*.o
+\.clang_complete
+*.elf
+*.map

@@ -99,7 +99,7 @@ flash: all
 	-c "reset run" -c shutdown
 
 clang-complete:
-	echo $(INCLUDE)>.clang_complete
+	echo $(INCLUDE) -D$(MCU)| sed "s/ -/\n-/g" >.clang_complete
 
 clean:
 	$(RM) $(OBJS) $(PROJ_NAME).elf $(PROJ_NAME).map .clang_complete
